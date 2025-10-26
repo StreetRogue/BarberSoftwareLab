@@ -1,4 +1,4 @@
-package co.edu.unicauca.barbersoftwareback.capaAccesoDatos.models;
+package co.edu.unicauca.barbersoftwareback.fachadaServices.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaEntity {
+public class CategoriaDTORespuesta {
     private Integer id;
     private String nombre;
 }
-

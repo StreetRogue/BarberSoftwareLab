@@ -1,12 +1,15 @@
-package co.edu.unicauca.barbersoftwareback.capaAccesoDatos.models;
+package co.edu.unicauca.barbersoftwareback.fachadaServices.DTO;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
-public class ServicioEntity {
+@NoArgsConstructor
+public class ServicioDTORespuesta {
     private Integer id;
     private String nombre;
     private String descripcion;
@@ -14,8 +17,5 @@ public class ServicioEntity {
     private Integer duracionMinutos;
     private Date fechaCreacion;
 
-    private CategoriaEntity objCategoria;
-
-    public ServicioEntity() {
-    }
+    private CategoriaDTORespuesta objCategoria;
 }
