@@ -1,6 +1,6 @@
 .list-container {
   padding: 2rem;
-  padding-top: 150px; /* Espacio para el header fijo */
+  padding-top: 50px; /* Espacio para el header fijo */
   max-width: 1000px;
   margin: 0 auto;
 }
