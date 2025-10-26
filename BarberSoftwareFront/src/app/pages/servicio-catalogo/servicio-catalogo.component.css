@@ -1,0 +1,142 @@
+/* --- 1. Cabecera --- */
+.catalogo-header {
+  /* Usamos un degradado sutil para la cabecera */
+  background: linear-gradient(135deg, #8a2c3b 0%, #414345 100%);
+  color: #fff;
+  border-bottom: 5px solid var(--c-primary-barber, #8a2c3b);
+}
+
+p{
+    color: #ccc  !important;
+}
+
+
+.catalogo-header .display-3 {
+  font-weight: 700; /* Más peso para el título */
+}
+
+/* --- 2. Barra de Filtros (Categorías) --- */
+.filter-bar {
+  background-color: #fff;
+  z-index: 100; /* Para que se ponga sobre el contenido */
+  padding: 0.75rem 0;
+  /* sticky-top de Bootstrap hace que se pegue arriba. 
+    Necesita un 'top' definido, usualmente 0, pero lo 
+    ajustamos si el header principal está fijo.
+  */
+}
+
+.filter-pills-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;  /* Permite scroll horizontal en móvil */
+  padding-bottom: 10px; /* Espacio para la barra de scroll si aparece */
+  margin-bottom: -10px; /* Compensa el padding */
+
+  /* Oculta la barra de scroll visualmente */
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.filter-pills-container::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+.filter-pill {
+  border-radius: 50px; /* Píldoras redondeadas */
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  color: #555;
+  flex-shrink: 0; /* Evita que las píldoras se encojan */
+  margin-right: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.filter-pill:hover {
+  background-color: #eee;
+  transform: translateY(-2px); /* Ligero efecto al pasar el mouse */
+}
+
+/* El estilo de la píldora activa */
+.filter-pill.active {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+  border-color: var(--c-primary-barber, #8a2c3b);
+  box-shadow: 0 4px 10px rgba(138, 44, 59, 0.3);
+}
+
+/* --- 3. Contenido Principal (Servicios) --- */
+
+.loading-state .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  /* Usa el color primario de la marca */
+  color: var(--c-primary-barber, #8a2c3b);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+/* Grid de Tarjetas de Servicio */
+.service-card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  /* Oculto por defecto para la animación */
+  opacity: 0;
+  /* Animación de entrada */
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+.service-card:hover {
+  transform: translateY(-8px); /* Efecto "lift" */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top-placeholder {
+  height: 200px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Botón de Reservar */
+.btn-primary {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  border-color: var(--c-primary-barber, #8a2c3b);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: scale(1.02); /* Ligero zoom al botón */
+}
+
+/* Estado Vacío */
+.empty-state {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+}
+
+/* --- 4. Animación de Entrada --- */
+/* (Usada en el @for del HTML) */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

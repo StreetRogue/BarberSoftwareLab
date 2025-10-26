@@ -1,0 +1,34 @@
+/* Estilos para los íconos (i) que nos pasaste.
+  Hacemos que los íconos dentro de links (<a>) 
+  y botones (<button>) se comporten igual.
+*/
+a .bi,
+.btn-icon .bi {
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Al pasar el mouse sobre el link O el botón, 
+  el ícono de adentro cambia de color.
+*/
+a:hover .bi,
+.btn-icon:hover .bi {
+  /* Usamos el color primario de la marca que definimos en el home */
+  color: var(--c-primary-barber, #8a2c3b); 
+}
+
+/* --- ¡AQUÍ ESTÁ EL ARREGLO! ---
+  Esto resetea el botón del carrito ('btn-icon') para que 
+  no tenga fondo, borde, ni padding.
+*/
+.btn-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: inherit; /* Hereda el color de su entorno */
+}
+
+.bi-person-circle{
+  color: black;
+}

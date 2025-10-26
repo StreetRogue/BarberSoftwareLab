@@ -1,0 +1,112 @@
+<div class="admin-panel-container">
+  <div class="container py-5">
+    
+    <!-- Encabezado -->
+    <div class="text-center mb-5">
+      <h1 class="display-4">Panel de Administrador</h1>
+      <p class="lead text-muted">Gestión de la barbería.</p>
+    </div>
+
+    <!-- Grid de Tarjetas -->
+    <div class="row g-4">
+      
+      <!-- 1. Registrar Producto -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="/admin/registrar-producto" class="admin-card text-decoration-none">
+          <div class="card-icon icon-success">
+            <i class="bi bi-plus-circle-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Registrar Servicio</h5>
+            <p class="card-text">Añadir un nuevo corte, tinte, o paquete al sistema.</p>
+          </div>
+          <div class="card-footer-admin">
+            Ir <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- 2. Listar / Editar / Eliminar -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="/admin/listar-productos" class="admin-card text-decoration-none">
+          <div class="card-icon icon-primary">
+            <i class="bi bi-list-task"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Gestionar Servicios</h5>
+            <p class="card-text">Listar, editar precios, cambiar nombres o eliminar servicios.</p>
+          </div>
+          <div class="card-footer-admin">
+            Ir <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- 3. Ver por Categoría -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="/admin/ver-categorias" class="admin-card text-decoration-none">
+          <div class="card-icon icon-info">
+            <i class="bi bi-tags-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Ver por Categoría</h5>
+            <p class="card-text">Filtrar servicios por categoría (Cortes, Tintes, etc.).</p>
+          </div>
+          <div class="card-footer-admin">
+            Ir <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- 4. Ofertas (Borrador) -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="#" class="admin-card text-decoration-none disabled">
+          <div class="card-icon icon-warning">
+            <i class="bi bi-megaphone-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Ver Ofertas</h5>
+            <p class="card-text">(Borrador) Gestionar las promociones y descuentos activos.</p>
+          </div>
+          <div class="card-footer-admin">
+            Próximamente...
+          </div>
+        </a>
+      </div>
+
+      <!-- 5. Cupones (Borrador) -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="#" class="admin-card text-decoration-none disabled">
+          <div class="card-icon icon-danger">
+            <i class="bi bi-ticket-perforated-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Ver Cupones</h5>
+            <p class="card-text">(Borrador) Administrar códigos de descuento y cupones.</p>
+          </div>
+          <div class="card-footer-admin">
+            Próximamente...
+          </div>
+        </a>
+      </div>
+
+      <!-- 6. Volver al Inicio -->
+      <div class="col-lg-4 col-md-6">
+        <a routerLink="/" class="admin-card text-decoration-none card-home">
+          <div class="card-icon icon-secondary">
+            <i class="bi bi-house-door-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Volver al Inicio</h5>
+            <p class="card-text">Regresar a la página principal de la barbería.</p>
+          </div>
+          <div class="card-footer-admin">
+            Ir <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+

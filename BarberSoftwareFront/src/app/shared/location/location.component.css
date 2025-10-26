@@ -1,0 +1,13 @@
+.location-section {
+  background-color: #f8f6f5; 
+}
+
+.map-container {
+  border-radius: 12px;
+  overflow: hidden; /* Para que el iframe respete el borde redondeado */
+  line-height: 0; /* Corrige espacios extra del iframe */
+}
+
+.list-unstyled i {
+  width: 20px; /* Alinea los iconos */
+}

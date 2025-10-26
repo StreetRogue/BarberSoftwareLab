@@ -1,0 +1,78 @@
+<!-- 1. HERO SECTION (con animaciones GSAP) -->
+<section class="hero-section">
+  <div class="container text-center py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8">
+
+        <h2 #heroLine1 class="hero-text-secondary">
+          En BARBA NEGRA, un buen corte es solo el comienzo.
+        </h2>
+
+        <h1 #heroLine2 class="hero-text-primary">
+          Vive una experiencia
+        </h1>
+
+        <h1 #flipWord class="hero-text-elegant">
+          ELEGANTE.
+        </h1>
+
+        <a #heroBtn href="#" class="btn btn-barber mt-4">
+          Reserva <i class="bi bi-arrow-right"></i>
+        </a>
+
+        <p #heroSubtext class="hero-subtext mt-5">
+          Disfruta asesoría personalizada, un ambiente agradable y una bebida o snack gratis mientras te renovas.<br>
+          ¿No quedaste convencido? ¡No pagas!<br>
+          Así de seguros estamos de que en BARBA NEGRA vas a salir con estilo y actitud.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SERVICES SECTION (con el nuevo carrusel móvil) -->
+<div class="services-container container py-5">
+
+  <h2 #serviceTitle class="text-center display-4 mb-5 service-title">Nuestros Servicios</h2>
+
+  <div class="row services-row g-4">
+
+    <div class="col-md-4 services-col">
+      <div #serviceCard class="card shadow-sm h-100 service-card">
+        <img src="assets/images/HomeImg1.png" class="card-img-top" alt="Barbería">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">BARBERÍA</h5>
+          <p class="card-text">Cortes clásicos y modernos con la precisión de un maestro.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 services-col">
+      <div #serviceCard class="card shadow-sm h-100 service-card">
+        <img src="assets/images/HomeImg2.png" class="card-img-top" alt="Coloración">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">COLORACIÓN</h5>
+          <p class="card-text">Desde tonos naturales hasta los diseños más atrevidos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 services-col">
+      <div #serviceCard class="card shadow-sm h-100 service-card">
+        <img src="assets/images/HomeImg3.png" class="card-img-top" alt="Peinados">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">PEINADOS</h5>
+          <p class="card-text">Eventos especiales o simplemente para un look impecable.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. NUEVA SECCIÓN DE UBICACIÓN -->
+<app-location></app-location>
+
+<!-- 4. CURSOR PERSONALIZADO (sigue aquí) -->
+<app-custom-cursor />

@@ -1,0 +1,138 @@
+<div class="form-container">
+  <div class="form-wizard-card">
+    
+    <!-- 1. Encabezado y Progreso -->
+    <div class="form-header">
+      <h2 class="form-title">{{ titulo }}</h2>
+      <div class="progress-bar-container">
+        <div 
+          class="progress-bar" 
+          [style.width.%]="(currentStep() - 1) * 50">
+        </div>
+        <div class="steps">
+          <span class="step" [class.active]="currentStep() >= 1">1</span>
+          <span class="step" [class.active]="currentStep() >= 2">2</span>
+          <span class="step" [class.active]="currentStep() >= 3">3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Contenido del Formulario (Template-Driven) -->
+    <!-- 
+      - #formServicio="ngForm" activa el Template-Driven form.
+      - (ngSubmit)="crearServicio(formServicio)" llama al método al enviar.
+    -->
+    <form #formServicio="ngForm" (ngSubmit)="crearServicio(formServicio)">
+
+      <!-- Usamos @switch (sintaxis moderna) para mostrar el paso -->
+      @switch (currentStep()) {
+
+        <!-- ----- PASO 1: Info Básica ----- -->
+        @case (1) {
+          <div class="form-step active">
+            <h5 class="step-title">Información Básica</h5>
+            
+            <!-- Campo Nombre -->
+            <div class="form-group floating">
+              <input type="text" id="nombre" name="nombre" class="form-control" placeholder=" " 
+                     [(ngModel)]="servicio.nombre" #nombre="ngModel" required minlength="3">
+              <label for="nombre">Nombre del Servicio</label>
+              @if (nombre.invalid && nombre.touched) {
+                <div class="invalid-feedback">
+                  @if (nombre.errors?.['required']) { <span>El nombre es requerido.</span> }
+                  @if (nombre.errors?.['minlength']) { <span>Debe tener al menos 3 caracteres.</span> }
+                </div>
+              }
+            </div>
+
+            <!-- Campo Categoría -->
+            <div class="form-group floating">
+              <select id="categoria" name="categoria" class="form-select" 
+                      [(ngModel)]="servicio.objCategoria" #categoria="ngModel" required>
+                <option [ngValue]="null" disabled>Seleccione una categoría</option>
+                <!-- Usamos @for (sintaxis moderna) para las categorías -->
+                @for (cat of categorias; track cat.id) {
+                  <option [ngValue]="cat">{{ cat.nombre }}</option>
+                }
+              </select>
+              <label for="categoria">Categoría</label>
+              @if (categoria.invalid && categoria.touched) {
+                <div class="invalid-feedback"><span>Debe seleccionar una categoría.</span></div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- ----- PASO 2: Detalles ----- -->
+        @case (2) {
+          <div class="form-step active">
+            <h5 class="step-title">Detalles del Servicio</h5>
+            
+            <div class="form-group floating">
+              <textarea id="descripcion" name="descripcion" class="form-control" rows="5" placeholder=" "
+                        [(ngModel)]="servicio.descripcion" #descripcion="ngModel" required></textarea>
+              <label for="descripcion">Descripción</label>
+              @if (descripcion.invalid && descripcion.touched) {
+                <div class="invalid-feedback"><span>La descripción es requerida.</span></div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- ----- PASO 3: Logística y Precio ----- -->
+        @case (3) {
+          <div class="form-step active">
+            <h5 class="step-title">Logística y Precio</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group floating">
+                  <input type="number" id="duracion" name="duracionMinutos" class="form-control" placeholder=" " min="10"
+                         [(ngModel)]="servicio.duracionMinutos" #duracion="ngModel" required>
+                  <label for="duracion">Duración (minutos)</label>
+                  @if (duracion.invalid && duracion.touched) {
+                    <div class="invalid-feedback"><span>Debe ser al menos 40 min.</span></div>
+                  }
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group floating">
+                  <input type="number" id="precio" name="precio" class="form-control" placeholder=" " min="0"
+                         [(ngModel)]="servicio.precio" #precio="ngModel" required>
+                  <label for="precio">Precio ($)</label>
+                  @if (precio.invalid && precio.touched) {
+                    <div class="invalid-feedback"><span>El precio es requerido.</span></div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      }
+
+      <!-- 3. Botones de Navegación -->
+      <div class="form-navigation">
+        <button type="button" class="btn btn-secondary" (click)="prevStep()" [disabled]="currentStep() === 1">
+          <i class="bi bi-arrow-left me-2"></i> Anterior
+        </button>
+        
+        @if (currentStep() < 3) {
+          <button type="button" class="btn btn-registrar" (click)="nextStep()">
+            Siguiente <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        } @else {
+          <!-- El botón final es de tipo "submit" -->
+          <button type="submit" class="btn btn-success" [disabled]="formServicio.invalid">
+            <i class="bi bi-check-lg me-2"></i> Registrar Servicio
+          </button>
+        }
+      </div>
+
+    </form>
+    
+    <div class="text-center mt-4">
+      <a routerLink="/admin" class="text-muted"><i class="bi bi-x-circle me-1"></i> Cancelar y volver al panel</a>
+    </div>
+
+  </div>
+</div>
+

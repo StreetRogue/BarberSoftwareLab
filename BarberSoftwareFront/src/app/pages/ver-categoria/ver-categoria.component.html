@@ -1,0 +1,101 @@
+<!-- 1. Header -->
+<div class="category-header">
+  <div class="container-fluid">
+    <a routerLink="/admin" class="btn btn-outline-light btn-back">
+      <i class="bi bi-arrow-left me-2"></i> Volver al Panel
+    </a>
+    <h1 class="title">Servicios por Categoría</h1>
+    <p class="subtitle">Filtra los servicios de tu barbería haciendo clic en una categoría.</p>
+  </div>
+</div>
+
+<!-- 2. Main Content Container -->
+<div class="category-view-container container-fluid">
+
+  <!-- 3. Loading State -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Cargando datos...</p>
+    </div>
+  } @else {
+    
+    <!-- 4. Content (Sidebar + Results) -->
+    <div class="row">
+      
+      <!-- 4a. Sidebar de Filtros (Columna Izquierda) -->
+      <div class="col-md-3">
+        <div class="filter-sidebar">
+          <h5>Categorías</h5>
+          <div class="list-group">
+            <!-- Botón "Ver Todos" -->
+            <button 
+              type="button" 
+              class="list-group-item list-group-item-action"
+              [class.active]="selectedCategory() === null"
+              (click)="selectCategory(null)">
+              <i class="bi bi-star-fill me-2"></i> Ver Todos
+            </button>
+            
+            <!-- Bucle @for para las categorías -->
+            @for (cat of allCategories(); track trackById($index, cat)) {
+              <button 
+                type="button" 
+                class="list-group-item list-group-item-action"
+                [class.active]="selectedCategory()?.id === cat.id"
+                (click)="selectCategory(cat)">
+                {{ cat.nombre }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- 4b. Resultados (Columna Derecha) -->
+      <div class="col-md-9">
+        <div class="results-content">
+          <!-- Título dinámico -->
+          <h4 class="results-title">
+            Mostrando: {{ selectedCategory()?.nombre || 'Todos los Servicios' }}
+          </h4>
+          <p class="results-count">
+            {{ filteredServices().length }} resultado(s)
+          </p>
+
+          <!-- Grid de Resultados -->
+          <div class="row g-3">
+            
+            <!-- Bucle @for para los servicios filtrados -->
+            @for (servicio of filteredServices(); track trackByServiceId($index, servicio)) {
+              <div class="col-md-6 col-lg-4">
+                <div class="service-card-item">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ servicio.nombre }}</h5>
+                    <p class="card-text">{{ servicio.descripcion | slice:0:80 }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="service-price">{{ servicio.precio | currency:'USD':'$' }}</span>
+                      <span class="service-duration">{{ servicio.duracionMinutos }} min.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <!-- Estado vacío si no hay servicios -->
+              <div class="col-12">
+                <div class="empty-state">
+                  <i class="bi bi-box-seam"></i>
+                  <p>No se encontraron servicios en esta categoría.</p>
+                </div>
+              </div>
+            }
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+</div>
+

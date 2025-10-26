@@ -1,0 +1,47 @@
+<header class="py-3 border-bottom shadow-sm">
+  <div class="container-fluid">
+
+    <!-- == VERSIÓN DESKTOP (Visible en pantallas 'lg' y más grandes) == -->
+    <div class="d-none d-lg-flex justify-content-between align-items-center">
+      <!-- 1. Izquierda (Placeholder para centrar) -->
+      <div style="width: 100px;">
+        <!-- Futuros links de navegación aquí -->
+      </div>
+
+      <!-- 2. Centro (Logo) -->
+      <a routerLink="/" class="d-block">
+        <img src="assets/images/BarbaNegraLogo.png" alt="BarbaNegraLogo" style="height: 60px;">
+      </a>
+
+      <!-- 3. Derecha (Iconos) -->
+      <div class="d-flex align-items-center" style="width: 100px; justify-content: flex-end;">
+        <!-- Carrito: Ahora es un botón que llama a la función -->
+        <button type="button" class="btn-icon me-3" (click)="showComingSoon()">
+          <i class="bi bi-cart fs-3"></i>
+        </button>
+        <a routerLink="/login">
+          <i class="bi bi-person-circle fs-3"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- == VERSIÓN MÓVIL (Visible en pantallas 'md' y más pequeñas) == -->
+    <div class="d-flex d-lg-none justify-content-between align-items-center">
+      <!-- 1. Izquierda (Icono de Usuario) -->
+      <!-- Quitamos 'ngskiphydration' de aquí -->
+      <a routerLink="/login">
+        <i class="bi bi-person-circle fs-3"></i>
+      </a>
+
+      <!-- 2. Centro (Logo) -->
+      <a routerLink="/" class="d-block">
+        <img src="assets/images/BarbaNegraLogo.png" alt="BarbaNegraLogo" style="height: 50px;">
+      </a>
+
+      <!-- 3. Derecha (Placeholder para centrar) -->
+      <div style="width: 36px;"></div> <!-- Ajusta el ancho para que coincida con el ícono de la izquierda -->
+    </div>
+
+  </div>
+</header>
+

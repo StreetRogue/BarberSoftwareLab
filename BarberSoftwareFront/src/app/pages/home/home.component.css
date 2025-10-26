@@ -1,0 +1,159 @@
+/* --- 1. HERO SECTION STYLES --- */
+
+.hero-section {
+  background-color: #f8f6f5; 
+  overflow: hidden; 
+  cursor: none; /* Oculta el cursor normal */
+  padding-top: 5rem; /* Damos espacio para el header */
+  padding-bottom: 5rem;
+}
+
+.hero-text-secondary {
+  font-family: 'serif';
+  font-size: 1.5rem;
+  color: #555;
+  font-weight: 300;
+  opacity: 0; /* Oculto para GSAP */
+  transform: translateY(20px); /* Oculto para GSAP */
+}
+
+.hero-text-primary {
+  font-family: 'serif';
+  font-size: 2.5rem;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 1rem;
+  opacity: 0; /* Oculto para GSAP */
+  transform: translateY(20px); /* Oculto para GSAP */
+}
+
+.hero-text-elegant {
+  font-family: 'serif';
+  font-size: 3.5rem;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+  /* GSAP se encarga de animar las letras */
+}
+
+.btn-barber {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  opacity: 0; /* Oculto para GSAP */
+  transform: translateY(20px); /* Oculto para GSAP */
+}
+
+.btn-barber:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtext {
+  color: #777;
+  line-height: 1.6;
+  opacity: 0; /* Oculto para GSAP */
+  transform: translateY(20px); /* Oculto para GSAP */
+}
+
+/* --- 2. CURSOR STYLES --- */
+
+.hero-section:hover ~ app-custom-cursor ::ng-deep .cursor-paint {
+  display: block; /* Muestra el cursor "paint" */
+}
+
+/* --- 3. SERVICES SECTION STYLES --- */
+
+.services-container {
+  padding-bottom: 5rem;
+}
+
+.service-title {
+  /* ¡YA NO ESTÁ OCULTO! */
+}
+
+.service-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  /* ¡YA NO ESTÁ OCULTO! La opacidad es 1 por defecto */
+}
+
+.service-card img {
+  height: 250px;
+  object-fit: cover;
+}
+
+.service-card .card-body {
+  padding: 1.5rem;
+}
+
+/* --- 4. DESKTOP STYLES (min-width: 768px) --- */
+@media (min-width: 768px) {
+  /* Efecto "lift" en desktop */
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* --- 5. MOBILE CAROUSEL STYLES (max-width: 767.98px) --- */
+@media (max-width: 767.98px) {
+  
+  .services-row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px;
+    margin: 0 -15px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .services-col {
+    flex: 0 0 85%;
+    max-width: 85%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* En móvil, la animación CSS anula la opacidad 0 de GSAP */
+  .service-card {
+    opacity: 1; /* Hacemos visible para la animación CSS */
+    animation: sticky-note-float 6s ease-in-out infinite;
+  }
+
+  .services-col:nth-child(2) .service-card {
+    animation-delay: -2s;
+  }
+  .services-col:nth-child(3) .service-card {
+    animation-delay: -4s;
+  }
+}
+
+/* --- 6. KEYFRAMES ANIMATION --- */
+
+@keyframes sticky-note-float {
+  0% {
+    transform: translateY(0) rotateZ(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: translateY(-8px) rotateZ(1.5deg);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+  100% {
+    transform: translateY(0) rotateZ(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
