@@ -8,4 +8,6 @@ export class Servicio {
   duracionMinutos!: number;
   fechaCreacion!: string;
   objCategoria: Categoria | null = null;
+  estado: 'Activo' | 'Inactivo' = 'Activo';
+  imagenBase64: string | null = null;
 }

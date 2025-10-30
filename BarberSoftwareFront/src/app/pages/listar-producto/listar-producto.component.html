@@ -1,17 +1,10 @@
-<!-- 1. Contenedor Principal -->
 <div class="list-container">
   
-  <!-- 2. Encabezado y Buscador -->
   <div class="list-header">
     <div class="header-content">
-      <h1 class="title">Listado de Servicios</h1>
+      <h1 class="title">Gestión de Servicios</h1>
       <p class="subtitle">Gestiona, edita y elimina los servicios de tu barbería.</p>
       
-      <!-- 
-        El Buscador Reactivo:
-        - [(ngModel)]="searchTerm" actualiza el signal en tiempo real.
-        - (ngModelChange)="$event" es necesario para que el signal se entere.
-      -->
       <div class="search-bar-wrapper">
         <i class="bi bi-search search-icon"></i>
         <input 
@@ -27,13 +20,20 @@
     </a>
   </div>
 
-  <!-- 3. El Listado de Servicios -->
+  <div class="list-actions-header">
+    <a routerLink="/admin/registrar-producto" class="btn-action-primary">
+      <i class="bi bi-plus-circle-fill me-2"></i>
+      Registrar Nuevo Servicio
+    </a>
+    <a routerLink="/admin/ver-categorias" class="btn-action-secondary">
+      <i class="bi bi-tags-fill me-2"></i>
+      Ver por Categoría
+    </a>
+  </div>
+
+
   <div class="services-list">
     
-    <!-- 
-      El bucle @for itera sobre el signal COMPUTADO 'filteredServices()'.
-      Esto es increíblemente rápido y reactivo.
-    -->
     @for (servicio of filteredServices(); track servicio.id; let i = $index) {
       <div class="service-item" [style.animation-delay.ms]="i * 50">
         <div class="service-info">
@@ -43,8 +43,13 @@
         </div>
         
         <div class="service-details">
-          <span class="service-price">{{ servicio.precio | currency:'USD':'$' }}</span>
+          <span class="service-price">{{ servicio.precio | currency:'COP':'$' }}</span>
           <span class="service-duration">{{ servicio.duracionMinutos }} min.</span>
+          @if (servicio.estado === 'Activo') {
+            <span class="badge bg-success mt-2">Activo</span>
+          } @else {
+            <span class="badge bg-secondary mt-2">Inactivo</span>
+          }
         </div>
         
         <div class="service-actions">
@@ -57,7 +62,6 @@
         </div>
       </div>
     } @empty {
-      <!-- Esto se muestra si 'filteredServices()' está vacío -->
       <div class="empty-state">
         <i class="bi bi-box-seam-fill"></i>
         @if (searchTerm() === '') {
@@ -72,10 +76,6 @@
 </div>
 
 
-<!-- 
-  4. El Modal de Edición 
-  Se renderiza condicionalmente usando @if.
--->
 @if (selectedService()) {
   <app-editar-servicio-modal 
     [servicio]="selectedService()!" 

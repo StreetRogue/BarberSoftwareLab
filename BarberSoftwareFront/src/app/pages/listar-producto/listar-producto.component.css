@@ -1,6 +1,6 @@
 .list-container {
   padding: 2rem;
-  padding-top: 50px; /* Espacio para el header fijo */
+  padding-top: 10px; /* Espacio para el header fijo */
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -10,12 +10,17 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap; /* Para que se apile en pantallas pequeñas */
+  gap: 1rem;
   padding: 2rem;
   background: linear-gradient(135deg, #8a2c3b 0%, #414345 100%);
   color: #fff;
   border-radius: 16px;
   margin-bottom: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.header-content {
+  flex-grow: 1; /* Ocupa el espacio disponible */
 }
 .title {
   font-weight: 700;
@@ -59,16 +64,78 @@
   border-color: var(--c-primary-barber, #8a2c3b);
 }
 
+/* --- Cabecera de Acciones (Botones) --- */
+.list-actions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Para que se apile en pantallas pequeñas */
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.actions-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Estilo de botón innovador */
+.btn-action-primary,
+.btn-action-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid;
+  border-radius: 50px; /* Redondeado */
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Botón Principal (Registrar) */
+.btn-action-primary {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  border-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+}
+
+.btn-action-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(138, 44, 59, 0.3);
+}
+
+/* Botón Secundario (Ver por Categoría) */
+.btn-action-secondary {
+  background-color: transparent;
+  border-color: #ddd;
+  color: #555;
+}
+
+.btn-action-secondary:hover {
+  border-color: var(--c-primary-barber, #8a2c3b);
+  color: var(--c-primary-barber, #8a2c3b);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
 /* --- Lista de Servicios --- */
 .services-list {
   display: grid;
   gap: 1.25rem;
 }
 
+/* *** INICIO DE LA CORRECCIÓN *** */
 .service-item {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  align-items: center;
+  /* Definimos 3 columnas: Info (auto), Detalles (fijo), Acciones (fijo) */
+  grid-template-columns: auto 120px 150px; 
+  align-items: center; /* Alinea verticalmente */
   gap: 1rem;
   padding: 1.5rem;
   background: #fff;
@@ -82,11 +149,14 @@
   transform: translateY(20px);
   animation: fadeIn 0.5s ease forwards;
 }
+/* *** FIN DE LA CORRECCIÓN *** */
 
 .service-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
+
+
 
 .service-category {
   display: inline-block;
@@ -109,6 +179,7 @@
   margin-top: 0.25rem;
 }
 
+/* Columna 2: Detalles (Precio, Duración) */
 .service-details {
   text-align: right;
 }
@@ -123,6 +194,7 @@
   color: #555;
 }
 
+/* Columna 3: Acciones (Botones) */
 .service-actions {
   display: flex;
   justify-content: flex-end;
@@ -164,6 +236,14 @@
   margin-bottom: 1rem;
 }
 
+.bg-success{
+  margin-left: 2px;
+}
+
+.bg-secondary{
+  margin-left: 5px;
+}
+
 /* --- Animación --- */
 @keyframes fadeIn {
   to {
@@ -182,8 +262,10 @@
     margin-top: 1rem;
     text-align: center;
   }
+  
+  /* En móvil, volvemos a una sola columna */
   .service-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
     gap: 0.5rem;
   }
   .service-details, .service-actions {
