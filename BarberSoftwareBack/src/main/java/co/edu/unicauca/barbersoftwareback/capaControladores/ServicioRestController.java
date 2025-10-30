@@ -71,4 +71,13 @@ public class ServicioRestController {
         return servicioService.findByCategoria(idCategoria);
     }
 
+    @GetMapping("/servicios/cliente")
+    public List<ServicioDTORespuesta> listarServiciosActivos() {
+        return servicioService.findAllClient();
+    }
+
+    @GetMapping("/servicios/cliente/categoria/{idCategoria}")
+    public List<ServicioDTORespuesta> listarServiciosActivosPorCategoria(@PathVariable Integer idCategoria) {
+        return servicioService.findByCategoriaClient(idCategoria);
+    }
 }

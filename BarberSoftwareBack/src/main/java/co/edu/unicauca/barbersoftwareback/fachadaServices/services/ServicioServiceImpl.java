@@ -136,4 +136,35 @@ public class ServicioServiceImpl implements IServicioService {
 
         return listaRetornar;
     }
+
+    @Override
+    public List<ServicioDTORespuesta> findAllClient() {
+        List<ServicioDTORespuesta> listaRetornar;
+        Optional<Collection<ServicioEntity>> serviciosEntityOpt = this.servicioAccesoBaseDatos.findAllClient();
+
+        if (serviciosEntityOpt.isEmpty()) {
+            listaRetornar = List.of();
+        } else {
+            Collection<ServicioEntity> serviciosEntity = serviciosEntityOpt.get();
+            listaRetornar = this.modelMapper.map(serviciosEntity, new TypeToken<List<ServicioDTORespuesta>>() {}.getType());
+        }
+
+        return listaRetornar;
+    }
+
+    @Override
+    public List<ServicioDTORespuesta> findByCategoriaClient(Integer idCategoria) {
+        List<ServicioDTORespuesta> listaRetornar;
+        Optional<Collection<ServicioEntity>> serviciosEntityOpt = this.servicioAccesoBaseDatos.findByCategoriaClient(idCategoria);
+
+        if (serviciosEntityOpt.isEmpty()) {
+            listaRetornar = List.of();
+        } else {
+            Collection<ServicioEntity> serviciosEntity = serviciosEntityOpt.get();
+            listaRetornar = this.modelMapper.map(serviciosEntity, new TypeToken<List<ServicioDTORespuesta>>() {}.getType());
+        }
+
+        return listaRetornar;
+    }
+
 }

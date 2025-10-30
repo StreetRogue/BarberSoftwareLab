@@ -315,4 +315,100 @@ public class ServicioRepository {
 
         return servicios.isEmpty() ? Optional.empty() : Optional.of(servicios);
     }
+
+    /**
+     * Lista todos los servicios para el cliente
+     */
+    public Optional<Collection<ServicioEntity>> findAllClient() {
+        System.out.println("Listando servicios de base de datos");
+        Collection<ServicioEntity> servicios = new LinkedList<>();
+
+        conexionABaseDeDatos.conectar();
+        try {
+            String consulta = "SELECT servicios.*, categorias.nombreCategoria "
+                    + "FROM servicios JOIN categorias ON servicios.idCategoria = categorias.id "
+                    + "WHERE servicios.estado = 'Activo'";
+            PreparedStatement sentencia = conexionABaseDeDatos.getConnection().prepareStatement(consulta);
+            ResultSet res = sentencia.executeQuery();
+
+            while (res.next()) {
+                ServicioEntity objServicio = new ServicioEntity();
+                objServicio.setId(res.getInt("id"));
+                objServicio.setNombre(res.getString("nombre"));
+                objServicio.setDescripcion(res.getString("descripcion"));
+
+                double precioTemp = res.getDouble("precio");
+                objServicio.setPrecio(res.wasNull() ? null : precioTemp);
+
+                int duracionTemp = res.getInt("duracionMinutos");
+                objServicio.setDuracionMinutos(res.wasNull() ? null : duracionTemp);
+
+                objServicio.setFechaCreacion(res.getDate("fechaCreacion"));
+                objServicio.setImagenBase64(res.getString("imagenBase64"));
+                objServicio.setEstado(res.getString("estado"));
+
+                objServicio.setObjCategoria(
+                        new CategoriaEntity(res.getInt("idCategoria"), res.getString("nombreCategoria"))
+                );
+
+                servicios.add(objServicio);
+            }
+
+            sentencia.close();
+            conexionABaseDeDatos.desconectar();
+
+        } catch (SQLException e) {
+            System.out.println("Error en la consulta: " + e.getMessage());
+        }
+
+        return servicios.isEmpty() ? Optional.empty() : Optional.of(servicios);
+    }
+
+    /**
+     * Buscar por categoría para cliente
+     */
+    public Optional<Collection<ServicioEntity>> findByCategoriaClient(Integer idCategoria) {
+        System.out.println("Listando servicios por categoría: " + idCategoria);
+        Collection<ServicioEntity> servicios = new LinkedList<>();
+
+        conexionABaseDeDatos.conectar();
+        try {
+            String consulta = "SELECT servicios.*, categorias.nombreCategoria "
+                    + "FROM servicios JOIN categorias ON servicios.idCategoria = categorias.id "
+                    + "WHERE servicios.idCategoria = ? AND servicios.estado = 'Activo'";
+            PreparedStatement sentencia = conexionABaseDeDatos.getConnection().prepareStatement(consulta);
+            sentencia.setInt(1, idCategoria);
+            ResultSet res = sentencia.executeQuery();
+
+            while (res.next()) {
+                ServicioEntity objServicio = new ServicioEntity();
+                objServicio.setId(res.getInt("id"));
+                objServicio.setNombre(res.getString("nombre"));
+                objServicio.setDescripcion(res.getString("descripcion"));
+
+                double precioTemp = res.getDouble("precio");
+                objServicio.setPrecio(res.wasNull() ? null : precioTemp);
+
+                int duracionTemp = res.getInt("duracionMinutos");
+                objServicio.setDuracionMinutos(res.wasNull() ? null : duracionTemp);
+
+                objServicio.setFechaCreacion(res.getDate("fechaCreacion"));
+                objServicio.setImagenBase64(res.getString("imagenBase64"));
+                objServicio.setEstado(res.getString("estado"));
+
+                objServicio.setObjCategoria(
+                        new CategoriaEntity(res.getInt("idCategoria"), res.getString("nombreCategoria"))
+                );
+
+                servicios.add(objServicio);
+            }
+
+            sentencia.close();
+            conexionABaseDeDatos.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error en la consulta por categoría: " + e.getMessage());
+        }
+
+        return servicios.isEmpty() ? Optional.empty() : Optional.of(servicios);
+    }
 }

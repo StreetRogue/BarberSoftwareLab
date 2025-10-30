@@ -12,4 +12,6 @@ public interface IServicioService {
     public ServicioDTORespuesta update(Integer id,ServicioDTOPeticion servicio);
     public boolean delete(Integer id);
     public List<ServicioDTORespuesta> findByCategoria(Integer idCategoria);
+    public List<ServicioDTORespuesta> findAllClient();
+    public List<ServicioDTORespuesta> findByCategoriaClient(Integer idCategoria);
 }
