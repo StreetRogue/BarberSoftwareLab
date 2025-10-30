@@ -3,7 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Servicio } from '../../core/servicios/modelos/Servicio';
 import { ServicioService } from '../../core/servicios/servicios/ServicioService';
 import { Categoria } from '../../core/categorias/modelos/Categoria';
-import { categoriaService } from '../../core/categorias/servicios/CategoriaService'; 
+import { categoriaService } from '../../core/categorias/servicios/CategoriaService';
 import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
 
@@ -18,11 +18,11 @@ export class ServicioCatalogoComponent implements OnInit {
 
   // --- Signals de Estado ---
   public isLoading = signal<boolean>(true);
-  public selectedCategoryId = signal<number | null>(null); 
+  public selectedCategoryId = signal<number | null>(null);
   public allCategories = signal<Categoria[]>([]);
   public filteredServices = signal<Servicio[]>([]);
 
-  // 'currentTitle' sigue funcionando porque depende de signals que aún existen.
+
   public currentTitle = computed(() => {
     const categoryId = this.selectedCategoryId();
     if (categoryId === null) {
@@ -44,14 +44,14 @@ export class ServicioCatalogoComponent implements OnInit {
 
   loadData(): void {
     this.isLoading.set(true);
-    
+
     this.categoriaService.getCategorias().subscribe({
       next: (categorias) => {
         this.allCategories.set(categorias);
-        
+
         this.servicioService.getServiciosCliente().subscribe({
           next: (servicios) => {
-            this.filteredServices.set(servicios); 
+            this.filteredServices.set(servicios);
             this.isLoading.set(false); // Terminamos de cargar todo
           },
           error: (err) => this.handleError(err)
@@ -63,13 +63,13 @@ export class ServicioCatalogoComponent implements OnInit {
 
   selectCategory(id: number | null): void {
     this.selectedCategoryId.set(id);
-    this.isLoading.set(true); 
+    this.isLoading.set(true);
 
     // Determina a qué endpoint llamar
     const apiCall = id === null  ? this.servicioService.getServiciosCliente() : this.servicioService.getServiciosClientePorCategoria(id);
     apiCall.subscribe({
       next: (servicios) => {
-        this.filteredServices.set(servicios); 
+        this.filteredServices.set(servicios);
         this.isLoading.set(false);
       },
       error: (err) => this.handleError(err)

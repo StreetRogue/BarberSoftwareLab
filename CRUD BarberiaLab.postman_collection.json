@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "66d82ba1-10c0-4115-ab36-eef45f952af1",
+		"name": "CRUD BarberiaLab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45581959",
+		"_collection_link": "https://managesoft.postman.co/workspace/ManageSoft-Workspace~e8004c82-4513-475e-875b-719384b5c77d/collection/45581959-66d82ba1-10c0-4115-ab36-eef45f952af1?action=share&source=collection_link&creator=45581959"
+	},
+	"item": [
+		{
+			"name": "Listar Servicios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:5000/api/servicios",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Servicio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Corte Clásico\",\r\n  \"descripcion\": \"Corte tradicional con tijera y máquina\",\r\n  \"precio\": 20000,\r\n  \"duracionMinutos\": 30,\r\n  \"objCategoria\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/servicios",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarServicio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/servicios/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Servicio",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/servicios/5",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActualizarServicio",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Corte Clásico Premium\",\r\n  \"descripcion\": \"Corte moderno con toalla caliente y loción refrescante\",\r\n  \"precio\": 25000,\r\n  \"duracionMinutos\": 45,\r\n  \"estado\": \"Inactivo\",\r\n  \"objCategoria\": {\r\n    \"id\": 4\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/servicios/4",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar categorias Barber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/categorias",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Servicios por Categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/servicios/categoria/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"categoria",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Servicios Cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/servicios/cliente",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Servicios por Categoria Cliente Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/servicios/cliente/categoria/3",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"servicios",
+						"cliente",
+						"categoria",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

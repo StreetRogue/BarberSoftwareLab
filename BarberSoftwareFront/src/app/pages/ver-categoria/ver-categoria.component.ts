@@ -3,7 +3,7 @@ import { CommonModule, CurrencyPipe, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 // Importamos los servicios y modelos
-import { categoriaService } from '../../core/categorias/servicios/CategoriaService'; 
+import { categoriaService } from '../../core/categorias/servicios/CategoriaService';
 import { ServicioService } from '../../core/servicios/servicios/ServicioService';
 import { Categoria } from '../../core/categorias/modelos/Categoria';
 import { Servicio } from '../../core/servicios/modelos/Servicio';
@@ -45,11 +45,11 @@ export class VerPorCategoriaComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Carga Optimizada ---
+  // --- Lógica de Carga ---
   selectCategory(categoria: Categoria | null): void {
     this.selectedCategory.set(categoria);
-    this.isLoadingServices.set(true); 
-    
+    this.isLoadingServices.set(true);
+
     // Si la categoría es 'null', cargamos todos
     if (categoria === null) {
       this.servicioService.getServicios().subscribe({
@@ -60,7 +60,6 @@ export class VerPorCategoriaComponent implements OnInit {
         error: (err) => this.handleError('todos los servicios', err)
       });
     } else {
-      // Si hay una categoría, usamos el endpoint específico
       this.servicioService.getServiciosPorCategoria(categoria.id).subscribe({
         next: (servs) => {
           this.activeServices.set(servs);
@@ -78,7 +77,7 @@ export class VerPorCategoriaComponent implements OnInit {
   trackByServiceId(index: number, servicio: Servicio): number {
     return servicio.id;
   }
-  
+
   // --- Manejador de Errores ---
   private handleError(tipo: string, err: any): void {
     console.error(`Error cargando ${tipo}:`, err);

@@ -2,6 +2,7 @@ INSERT INTO categorias (id, nombreCategoria) VALUES (1, 'Marinero');
 INSERT INTO categorias (id, nombreCategoria) VALUES (2, 'Corsario');
 INSERT INTO categorias (id, nombreCategoria) VALUES (3, 'Barbenegra');
 INSERT INTO categorias (id, nombreCategoria) VALUES (4, 'ELITE');
+INSERT INTO categorias (id, nombreCategoria) VALUES (5, 'Supremo');
 
 INSERT INTO servicios (nombre, descripcion, precio, duracionMinutos, fechaCreacion, idCategoria, estado)
 VALUES ('Corte Clásico', 'Corte tradicional con tijera y máquina', 20000, 30, '2025-01-22', 1, 'Activo');
