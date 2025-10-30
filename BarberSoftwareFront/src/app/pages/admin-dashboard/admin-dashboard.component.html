@@ -1,16 +1,14 @@
 <div class="admin-panel-container">
   <div class="container py-5">
     
-    <!-- Encabezado -->
     <div class="text-center mb-5">
       <h1 class="display-4 fw-bold">Panel de Administrador</h1>
+      <p class="lead text-muted">Gestión de la barbería.</p>
     </div>
 
-    <!-- Grid de Tarjetas -->
     <div class="row g-4 justify-content-center">
       
-      <!-- 1. Gestionar Servicios (Hub Principal) -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-6 col-md-6">
         <a routerLink="/admin/listar-productos" class="admin-card text-decoration-none">
           <div class="card-icon icon-primary">
             <i class="bi bi-scissors"></i>
@@ -25,9 +23,8 @@
         </a>
       </div>
 
-      <!-- 2. Ver Ofertas (Borrador) -->
-      <div class="col-lg-4 col-md-6">
-        <a routerLink="/admin/ofertas" class="admin-card text-decoration-none disabled-card">
+      <div class="col-lg-6 col-md-6">
+        <a routerLink="/ofertas" class="admin-card text-decoration-none disabled-card">
           <div class="card-icon icon-warning">
             <i class="bi bi-megaphone-fill"></i>
           </div>
@@ -41,9 +38,8 @@
         </a>
       </div>
 
-      <!-- 3. Ver Cupones (Borrador) -->
-      <div class="col-lg-4 col-md-6">
-        <a routerLink="/admin/cupones" class="admin-card text-decoration-none disabled-card">
+      <div class="col-lg-6 col-md-6">
+        <a routerLink="/cupones" class="admin-card text-decoration-none disabled-card">
           <div class="card-icon icon-danger">
             <i class="bi bi-ticket-perforated-fill"></i>
           </div>
@@ -57,9 +53,23 @@
         </a>
       </div>
 
+      <div class="col-lg-6 col-md-6">
+        <a routerLink="/ayuda" class="admin-card text-decoration-none disabled-card">
+          <div class="card-icon icon-info">
+            <i class="bi bi-question-circle-fill"></i>
+          </div>
+          <div class="card-body-admin">
+            <h5 class="card-title">Ayuda</h5>
+            <p class="card-text">(Borrador) PQR</p>
+          </div>
+          <div class="card-footer-admin">
+            Próximamente...
+          </div>
+        </a>
+      </div>
+
     </div>
     
-    <!-- Botón de Volver -->
     <div class="text-center mt-5 pt-4">
       <a routerLink="/" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left me-2"></i> Volver al Inicio
@@ -68,4 +78,3 @@
 
   </div>
 </div>
-

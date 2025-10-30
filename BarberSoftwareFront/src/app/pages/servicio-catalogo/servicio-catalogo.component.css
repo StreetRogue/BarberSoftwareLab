@@ -5,7 +5,20 @@
   border-bottom: 5px solid var(--c-primary-barber, #8a2c3b);
 }
 
-p{
+.catalogo-header .display-3 {
+  font-weight: 700; /* Más peso para el título */
+}
+
+/* --- *** NUEVA REGLA PARA EL BOTÓN *** --- */
+.catalogo-header .btn-back {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+}
+
+p.lead{
     color: #ccc !important;
 }
 
@@ -13,6 +26,8 @@ p{
 .catalogo-header .display-3 {
   font-weight: 700; 
 }
+
+
 
 /* --- 2. Barra de Filtros (Categorías) --- */
 .filter-bar {

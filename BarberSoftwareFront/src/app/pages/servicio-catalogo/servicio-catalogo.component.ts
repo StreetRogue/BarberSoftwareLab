@@ -5,11 +5,12 @@ import { ServicioService } from '../../core/servicios/servicios/ServicioService'
 import { Categoria } from '../../core/categorias/modelos/Categoria';
 import { categoriaService } from '../../core/categorias/servicios/CategoriaService'; 
 import Swal from 'sweetalert2';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-servicio-catalogo',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe],
+  imports: [CommonModule, CurrencyPipe, RouterLink],
   templateUrl: './servicio-catalogo.component.html',
   styleUrl: './servicio-catalogo.component.css'
 })

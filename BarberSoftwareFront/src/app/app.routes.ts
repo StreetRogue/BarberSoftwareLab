@@ -8,8 +8,10 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { RegistrarProductoComponent } from './pages/registrar-producto/registrar-producto.component';
 import { ListarProductoComponent } from './pages/listar-producto/listar-producto.component';
 import { VerPorCategoriaComponent } from './pages/ver-categoria/ver-categoria.component'; 
-import { ServicioCatalogoComponent } from './pages/servicio-catalogo/servicio-catalogo.component'; 
-// (Aquí importarías los otros componentes del taller: Actualizar, Ofertas, etc.)
+import { ServicioCatalogoComponent } from './pages/servicio-catalogo/servicio-catalogo.component';
+import { CuponesComponent } from './pages/cupones/cupones.component';
+import { AyudaComponent } from './pages/ayuda/ayuda.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
 
 export const routes: Routes = [
   
@@ -23,16 +25,22 @@ export const routes: Routes = [
     path: 'login', 
     component: LoginComponent 
   },
+
+  // --- Flujo de Cliente ---
   { 
     path: 'cliente', 
+    component: ClienteDashboardComponent 
+  },
+
+  { 
+    path: 'cliente/ver-servicio', 
     component: ServicioCatalogoComponent 
   },
 
-  // --- Flujo de Administrador ---
+  
   { 
     path: 'admin', 
     component: AdminDashboardComponent 
-    // (En un futuro, esto estaría protegido por un AuthGuard)
   },
   // Rutas anidadas para las funcionalidades del admin
   {
@@ -45,8 +53,10 @@ export const routes: Routes = [
   },
 
    { path: 'admin/ver-categorias', component: VerPorCategoriaComponent },
-  // { path: 'admin/ofertas', component: OfertasComponent },
-  // { path: 'admin/cupones', component: CuponesComponent },
+
+   { path: 'ofertas', component: OfertasComponent },
+   { path: 'cupones', component: CuponesComponent },
+   { path: 'ayuda', component: AyudaComponent },
 
   // --- Ruta Wildcard ---
   // Redirige cualquier ruta no encontrada al inicio

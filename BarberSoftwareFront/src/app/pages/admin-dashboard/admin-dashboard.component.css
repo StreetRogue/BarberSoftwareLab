@@ -73,6 +73,32 @@
 .icon-danger  { background-color: #fee2e2; color: #b91c1c; }
 .icon-secondary { background-color: #e5e7eb; color: #374151; }
 
+.admin-card.disabled-card {
+  /* 1. Las hace semi-transparentes */
+  opacity: 0.6; 
+  
+  /* 2. Desactiva todos los clics y eventos del mouse */
+  pointer-events: none; 
+  
+  /* 3. Cambia el cursor (aunque ya no se puede clickear) */
+  cursor: not-allowed;
+}
+
+/* Esto anula cualquier efecto :hover que
+  pudiera estar definido en .admin-card:hover
+*/
+.admin-card.disabled-card:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* Sombra base */
+  border-color: #e9ecef; /* Borde base */
+}
+
+/* Estilo del footer para tarjetas desactivadas */
+.admin-card.disabled-card .card-footer-admin {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
 /* Tarjeta de "Volver" */
 .card-home:hover {
   border-color: #6c757d;
