@@ -57,8 +57,13 @@ public class ServicioServiceImpl implements IServicioService {
     public ServicioDTORespuesta save(ServicioDTOPeticion servicio) {
         ServicioEntity servicioEntity = this.modelMapper.map(servicio, ServicioEntity.class);
 
-        // Se asigna fecha de creación automáticamente
+        // Asignar fecha de creación automáticamente
         servicioEntity.setFechaCreacion(new Date());
+
+        // 🔹 Si no se envía estado, se establece por defecto "Activo"
+        if (servicioEntity.getEstado() == null || servicioEntity.getEstado().isBlank()) {
+            servicioEntity.setEstado("Activo");
+        }
 
         // Registrar servicio en BD
         Optional<ServicioEntity> objServicioEntity = this.servicioAccesoBaseDatos.save(servicioEntity);
@@ -68,9 +73,9 @@ public class ServicioServiceImpl implements IServicioService {
         }
 
         // Convertir a DTO de respuesta
-        ServicioDTORespuesta servicioDTO = this.modelMapper.map(objServicioEntity.get(), ServicioDTORespuesta.class);
-        return servicioDTO;
+        return this.modelMapper.map(objServicioEntity.get(), ServicioDTORespuesta.class);
     }
+
 
     @Override
     public ServicioDTORespuesta update(Integer id, ServicioDTOPeticion servicio) {
@@ -86,6 +91,16 @@ public class ServicioServiceImpl implements IServicioService {
             objServicioDatosNuevos.setPrecio(servicio.getPrecio());
             objServicioDatosNuevos.setDuracionMinutos(servicio.getDuracionMinutos());
 
+            // 🔹 Actualizar imagen si viene en la petición
+            if (servicio.getImagenBase64() != null) {
+                objServicioDatosNuevos.setImagenBase64(servicio.getImagenBase64());
+            }
+
+            // 🔹 Actualizar estado si viene en la petición
+            if (servicio.getEstado() != null && !servicio.getEstado().isBlank()) {
+                objServicioDatosNuevos.setEstado(servicio.getEstado());
+            }
+
             // Actualizar la categoría
             if (servicio.getObjCategoria() != null) {
                 objServicioDatosNuevos.getObjCategoria().setId(servicio.getObjCategoria().getId());
@@ -100,6 +115,7 @@ public class ServicioServiceImpl implements IServicioService {
 
         return servicioActualizado == null ? null : this.modelMapper.map(servicioActualizado, ServicioDTORespuesta.class);
     }
+
 
     @Override
     public boolean delete(Integer id) {

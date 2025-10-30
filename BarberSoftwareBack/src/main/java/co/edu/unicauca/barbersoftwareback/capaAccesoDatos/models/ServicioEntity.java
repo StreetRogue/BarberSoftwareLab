@@ -13,6 +13,8 @@ public class ServicioEntity {
     private Double precio;
     private Integer duracionMinutos;
     private Date fechaCreacion;
+    private String imagenBase64;
+    private String estado;
 
     private CategoriaEntity objCategoria;
 

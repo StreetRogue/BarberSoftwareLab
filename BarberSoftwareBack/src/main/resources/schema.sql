@@ -11,5 +11,7 @@ CREATE TABLE servicios (
                            duracionMinutos INT,
                            fechaCreacion DATE,
                            idCategoria INT,
+                           imagenBase64 CLOB,
+                           estado VARCHAR(20) DEFAULT 'Activo' CHECK (estado IN ('Activo', 'Inactivo')),
                            FOREIGN KEY (idCategoria) REFERENCES categorias(id)
 );
