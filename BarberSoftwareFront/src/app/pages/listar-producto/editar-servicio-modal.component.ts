@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editar-servicio-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './editar-servicio-modal.component.html',
   styleUrl: './editar-servicio-modal.component.css'
 })
@@ -39,9 +39,6 @@ export class EditarServicioModalComponent implements OnInit {
   ngOnInit(): void {
     // 1. Cargar las categorías para el <select>
     this.loadCategorias();
-
-    // 2. Asegurarse de que objCategoria sea un objeto Categoria
-    // Si servicio.objCategoria es solo un ID (o nulo), lo buscamos
     if (this.servicio.objCategoria) {
       this.servicio.objCategoria = { id: this.servicio.objCategoria.id, nombre: this.servicio.objCategoria.nombre };
     }
@@ -68,7 +65,7 @@ export class EditarServicioModalComponent implements OnInit {
       return;
     }
     
-    // Validación de tamaño (2MB)
+    // Validación de tamaño (4MB)
     const maxSizeInBytes = 4 * 1024 * 1024; // 4MB
     if (file.size > maxSizeInBytes) {
        Swal.fire('Archivo muy grande', `La imagen no puede pesar más de 2MB.`, 'error');
@@ -101,7 +98,7 @@ export class EditarServicioModalComponent implements OnInit {
     this.servicioService.update(this.servicio).subscribe({
       next: (response) => {
         Swal.fire('¡Actualizado!', `El servicio "${response.nombre}" ha sido actualizado.`, 'success');
-        this.save.emit(); // Notifica al padre que se guardó
+        this.save.emit(); 
       },
       error: (err) => {
         console.error("Error actualizando servicio:", err);

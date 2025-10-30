@@ -21,7 +21,7 @@ export class RegistrarProductoComponent implements OnInit {
 
   // --- Estado del Componente ---
   public currentStep = signal<number>(1); // Para el Stepper
-  public servicio: Servicio = new Servicio(); // Nuestro objeto (con estado e imagen)
+  public servicio: Servicio = new Servicio(); 
   public categorias: Categoria[] = [];
   public titulo: string = 'Crear Servicio';
    public imagePreview = signal<string | null>(null);
@@ -53,7 +53,7 @@ export class RegistrarProductoComponent implements OnInit {
     }
   }
 
-  // --- 3. Lógica de Subida de Archivo (Base64) ---
+  // --- 3. Lógica de Subida de Imagen (Base64) ---
   public onFileChange(event: any): void {
     const file = event.target.files[0];
     if (!file) {
@@ -71,11 +71,11 @@ export class RegistrarProductoComponent implements OnInit {
       return;
     }
 
-    // Validación de tamaño (ej: 2MB máximo)
+    // Validación de tamaño
     const maxSizeInBytes = 4 * 1024 * 1024; // 4MB
     if (file.size > maxSizeInBytes) {
        Swal.fire('Archivo muy grande', `La imagen no puede pesar más de ${maxSizeInBytes / 1024 / 1024}MB.`, 'error');
-       event.target.value = null; // Limpia el input
+       event.target.value = null; 
        this.servicio.imagenBase64 = null;
        this.imagePreview.set(null);
        return;
@@ -83,7 +83,6 @@ export class RegistrarProductoComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      // e.target.result contiene el string Base64 (ej: "data:image/jpeg;base64,...")
       this.servicio.imagenBase64 = e.target.result; 
       this.imagePreview.set(e.target.result); // Actualiza la vista previa
       console.log('Imagen convertida a Base64 (primeros 100 chars):', e.target.result.substring(0, 100));

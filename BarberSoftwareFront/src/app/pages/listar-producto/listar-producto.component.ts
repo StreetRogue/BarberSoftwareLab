@@ -15,9 +15,9 @@ import Swal from 'sweetalert2';
   imports: [
     CommonModule, 
     RouterLink, 
-    FormsModule,  // Para el ngModel del buscador
+    FormsModule, 
     CurrencyPipe, // Para formatear el precio
-    EditarServicioModalComponent // <-- El Modal
+    EditarServicioModalComponent // Modal
   ],
   templateUrl: './listar-producto.component.html',
   styleUrl: './listar-producto.component.css'
@@ -25,25 +25,19 @@ import Swal from 'sweetalert2';
 export class ListarProductoComponent implements OnInit {
 
   // --- Inyección de Servicios ---
-  private servicioService = inject(ServicioService);
-
+   constructor(
+      private servicioService: ServicioService
+    ) {}
   // --- Signals para el Estado Reactivo ---
-  
-  // 1. El listado maestro (privado)
   private allServices = signal<Servicio[]>([]);
-  
-  // 2. El término de búsqueda (publico, enlazado al HTML)
   public searchTerm = signal<string>('');
-
-  // 3. El servicio seleccionado para editar (controla el modal)
   public selectedService = signal<Servicio | null>(null);
 
-  // 4. (COMPUTED) La lista filtrada que ve el usuario (¡La magia!)
   // Esto se recalcula automáticamente cada vez que 'allServices' o 'searchTerm' cambian.
   public filteredServices = computed(() => {
     const term = this.searchTerm().toLowerCase();
     if (term === '') {
-      return this.allServices(); // Sin filtro, muestra todo
+      return this.allServices(); //  Muestra todo
     }
     
     // Filtra por nombre o descripción
@@ -52,6 +46,8 @@ export class ListarProductoComponent implements OnInit {
       s.descripcion.toLowerCase().includes(term)
     );
   });
+
+
 
   ngOnInit(): void {
     this.loadServices();
@@ -71,7 +67,6 @@ export class ListarProductoComponent implements OnInit {
   }
 
   // --- Métodos de Acción ---
-
   onEdit(servicio: Servicio): void {
     // Abre el modal al establecer el servicio seleccionado
     // Hacemos una copia para no modificar la lista original si cancela

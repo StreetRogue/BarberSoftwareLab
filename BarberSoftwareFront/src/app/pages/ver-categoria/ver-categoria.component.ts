@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule, CurrencyPipe, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -7,79 +7,68 @@ import { categoriaService } from '../../core/categorias/servicios/CategoriaServi
 import { ServicioService } from '../../core/servicios/servicios/ServicioService';
 import { Categoria } from '../../core/categorias/modelos/Categoria';
 import { Servicio } from '../../core/servicios/modelos/Servicio';
+import Swal from 'sweetalert2'; // Importamos Swal para errores
 
 @Component({
   selector: 'app-ver-por-categoria',
   standalone: true,
   imports: [CommonModule, RouterLink, CurrencyPipe, SlicePipe],
-  templateUrl: './ver-categoria.component.html',
+  templateUrl: './ver-categoria.component.html', // Corregido: el nombre de tu archivo era ver-categoria.component.html
   styleUrl: './ver-categoria.component.css'
 })
 export class VerPorCategoriaComponent implements OnInit {
 
-  // --- Inyección de Servicios ---
-  private categoriaService = inject(categoriaService);
-  private servicioService = inject(ServicioService);
-
   // --- Signals para el Estado Reactivo ---
-  
-  // 1. Listados "maestros"
   public allCategories = signal<Categoria[]>([]);
-  public allServices = signal<Servicio[]>([]);
-  
-  // 2. Estado de la UI
+  public activeServices = signal<Servicio[]>([]); // Los servicios que se muestran
   public selectedCategory = signal<Categoria | null>(null);
-  public isLoading = signal<boolean>(true);
+  public isLoading = signal<boolean>(true); // Para las categorías
+  public isLoadingServices = signal<boolean>(false); // Para los servicios
 
-  // 3. (COMPUTED) La lista filtrada que ve el usuario
-  public filteredServices = computed(() => {
-    const selectedCat = this.selectedCategory();
-    
-    // Si no hay categoría seleccionada, muestra todos
-    if (selectedCat === null) {
-      return this.allServices();
-    }
-    
-    // Filtra los servicios cuyo ID de categoría coincida
-    return this.allServices().filter(
-      servicio => servicio.objCategoria?.id === selectedCat.id
-    );
-  });
+  // --- Inyección por Constructor ---
+  constructor(
+    private categoriaService: categoriaService,
+    private servicioService: ServicioService
+  ) {}
 
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  loadData(): void {
+    // 1. Cargar las categorías primero
     this.isLoading.set(true);
-    // Cargamos las categorías
     this.categoriaService.getCategorias().subscribe({
       next: (cats) => {
         this.allCategories.set(cats);
-        
-        // Después de cargar categorías, cargamos todos los servicios
-        this.servicioService.getServicios().subscribe({
-          next: (servs) => {
-            this.allServices.set(servs);
-            this.isLoading.set(false); // Terminamos de cargar
-          },
-          error: (err) => {
-            console.error('Error cargando servicios:', err);
-            this.isLoading.set(false);
-          }
-        });
-      },
-      error: (err) => {
-        console.error('Error cargando categorías:', err);
+        // 2. Al iniciar, cargar "Todos" los servicios por defecto
+        this.selectCategory(null);
         this.isLoading.set(false);
-      }
+      },
+      error: (err) => this.handleError('categorías', err)
     });
   }
 
-  // --- Métodos de Acción ---
-
+  // --- Lógica de Carga Optimizada ---
   selectCategory(categoria: Categoria | null): void {
     this.selectedCategory.set(categoria);
+    this.isLoadingServices.set(true); 
+    
+    // Si la categoría es 'null', cargamos todos
+    if (categoria === null) {
+      this.servicioService.getServicios().subscribe({
+        next: (servs) => {
+          this.activeServices.set(servs);
+          this.isLoadingServices.set(false);
+        },
+        error: (err) => this.handleError('todos los servicios', err)
+      });
+    } else {
+      // Si hay una categoría, usamos el endpoint específico
+      this.servicioService.getServiciosPorCategoria(categoria.id).subscribe({
+        next: (servs) => {
+          this.activeServices.set(servs);
+          this.isLoadingServices.set(false);
+        },
+        error: (err) => this.handleError(`servicios para ${categoria.nombre}`, err)
+      });
+    }
   }
 
   // --- Funciones TrackBy para optimizar los bucles @for ---
@@ -89,5 +78,12 @@ export class VerPorCategoriaComponent implements OnInit {
   trackByServiceId(index: number, servicio: Servicio): number {
     return servicio.id;
   }
+  
+  // --- Manejador de Errores ---
+  private handleError(tipo: string, err: any): void {
+    console.error(`Error cargando ${tipo}:`, err);
+    this.isLoading.set(false);
+    this.isLoadingServices.set(false);
+    Swal.fire('Error', `No se pudieron cargar ${tipo}.`, 'error');
+  }
 }
-

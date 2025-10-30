@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Servicio } from '../../core/servicios/modelos/Servicio';
 import { ServicioService } from '../../core/servicios/servicios/ServicioService';
@@ -15,42 +15,26 @@ import Swal from 'sweetalert2';
 })
 export class ServicioCatalogoComponent implements OnInit {
 
-  // --- Inyección de Servicios ---
-  private servicioService = inject(ServicioService);
-  private categoriaService = inject(categoriaService);
-
   // --- Signals de Estado ---
   public isLoading = signal<boolean>(true);
-  public selectedCategoryId = signal<number | null>(null); // null = "Todos"
-  
-  private allServices = signal<Servicio[]>([]);
+  public selectedCategoryId = signal<number | null>(null); 
   public allCategories = signal<Categoria[]>([]);
+  public filteredServices = signal<Servicio[]>([]);
 
-  // --- Signals Computados (La Magia) ---
-  
-  // Lista de servicios filtrada, se actualiza sola
-  public filteredServices = computed(() => {
-    const categoryId = this.selectedCategoryId();
-    
-    if (categoryId === null) {
-      return this.allServices(); // Mostrar todos
-    }
-    
-    return this.allServices().filter(
-      servicio => servicio.objCategoria?.id === categoryId
-    );
-  });
-
-  // Título dinámico
+  // 'currentTitle' sigue funcionando porque depende de signals que aún existen.
   public currentTitle = computed(() => {
     const categoryId = this.selectedCategoryId();
     if (categoryId === null) {
       return "Todos los Servicios";
     }
-    // Busca el nombre de la categoría en la lista
     const category = this.allCategories().find(c => c.id === categoryId);
     return category ? category.nombre : "Servicios";
   });
+
+  constructor(
+    private servicioService: ServicioService,
+    private categoriaService: categoriaService
+  ) {}
 
 
   ngOnInit(): void {
@@ -60,15 +44,13 @@ export class ServicioCatalogoComponent implements OnInit {
   loadData(): void {
     this.isLoading.set(true);
     
-    // 1. Cargar Categorías
     this.categoriaService.getCategorias().subscribe({
       next: (categorias) => {
         this.allCategories.set(categorias);
         
-        // 2. Cargar Servicios (solo después de tener categorías)
-        this.servicioService.getServicios().subscribe({
+        this.servicioService.getServiciosCliente().subscribe({
           next: (servicios) => {
-            this.allServices.set(servicios);
+            this.filteredServices.set(servicios); 
             this.isLoading.set(false); // Terminamos de cargar todo
           },
           error: (err) => this.handleError(err)
@@ -78,10 +60,19 @@ export class ServicioCatalogoComponent implements OnInit {
     });
   }
 
-  // --- Métodos de Acción ---
-
   selectCategory(id: number | null): void {
     this.selectedCategoryId.set(id);
+    this.isLoading.set(true); 
+
+    // Determina a qué endpoint llamar
+    const apiCall = id === null  ? this.servicioService.getServiciosCliente() : this.servicioService.getServiciosClientePorCategoria(id);
+    apiCall.subscribe({
+      next: (servicios) => {
+        this.filteredServices.set(servicios); 
+        this.isLoading.set(false);
+      },
+      error: (err) => this.handleError(err)
+    });
   }
 
   private handleError(err: any): void {

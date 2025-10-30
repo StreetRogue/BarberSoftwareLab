@@ -16,10 +16,10 @@ public class ServicioDTORespuesta {
     private Integer duracionMinutos;
     private Date fechaCreacion;
 
-    // 🔹 Nuevo campo: imagen en Base64 (para mostrar en el frontend)
+    //Nuevo campo: imagen en Base64 (para mostrar en el frontend)
     private String imagenBase64;
 
-    // 🔹 Nuevo campo: estado ("Activo" / "Inactivo")
+    //Nuevo campo: estado ("Activo" / "Inactivo")
     private String estado;
 
     private CategoriaDTORespuesta objCategoria;

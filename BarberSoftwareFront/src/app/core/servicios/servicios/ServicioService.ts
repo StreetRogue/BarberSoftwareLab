@@ -35,4 +35,12 @@ export class ServicioService {
   getServicioById(id: number): Observable<Servicio> {
     return this.http.get<Servicio>(`${this.urlEndPoint}/${id}`);
   }
+
+  getServiciosCliente(): Observable<Servicio[]> {
+    return this.http.get<Servicio[]>(`${this.urlEndPoint}/cliente`);
+  }
+
+  getServiciosClientePorCategoria(idCategoria: number): Observable<Servicio[]> {
+    return this.http.get<Servicio[]>(`${this.urlEndPoint}/cliente/categoria/${idCategoria}`);
+  }
 }
